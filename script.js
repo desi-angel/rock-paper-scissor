@@ -14,50 +14,48 @@ function computerPlay(){
     }
     return choice;
 }
-let computerSelection; //Variable to store the computer choice
-let playerSelection; //Variable to store the player's choice
-let winCount = 0; //initialize the win counter
-let loseCount = 0; //initialize the lose counter 
+
 
 
 function playRound(computerSelection, playerSelection){     //Playing a single round according to the rules of the game
-        if(computerSelection === playerSelection){      
-
-            return {message: ('Its a Tie.') } ;  //return tie if the selection are equal
-        }
-        else if((computerSelection === 'rock' && playerSelection === 'scissor') || (computerSelection === 'scissor' && playerSelection === 'paper')
-        || (computerSelection === 'paper' && playerSelection === 'rock')){
-
-            loseCount += 1; //Update the  lose counter
-            return {message:(`You lose. ${computerSelection} beats ${playerSelection}`),
-                    loseCount: loseCount};
-        }
+    if(computerSelection === playerSelection){      
+        
+        return {message: ('Its a Tie.'), winCount:winCount, loseCount:loseCount } ;  //return tie if the selection are equal
+    }
+    else if((computerSelection === 'rock' && playerSelection === 'scissor') || (computerSelection === 'scissor' && playerSelection === 'paper')
+    || (computerSelection === 'paper' && playerSelection === 'rock')){
+        
+        loseCount += 1; //Update the  lose counter
+        return {message:(`You lose. ${computerSelection} beats ${playerSelection}`),
+        loseCount: loseCount, winCount:winCount};
+    }
         else{
             winCount += 1; //Update the win counter
             return {message:(`You Win. ${playerSelection} beats ${computerSelection}`),
-                    winCount: winCount};
+            winCount: winCount, loseCount:loseCount};
         }
-}
-function getChoice (){
-    let playerChoice = prompt('Choose your weapon of choice ?. Rock Paper or Scissor: '); //Get input from the user 
-    playerChoice = playerChoice.toLowerCase();
-    return playerChoice;
-}
-
-for(let i = 1; i<=5; i++){  //Loop the game for multiple rounds
-    computerSelection = computerPlay();
-    playerSelection = getChoice();
-    let message = playRound(computerSelection, playerSelection).message; 
-    console.log(message);  //display the result of a each round
+    }
+function displayResult(e){  //displaying result to the user
+        e.preventDefault();   //Prevents bubbling on the way down
+        let result = playRound(computerPlay(),e.currentTarget.value); //getting result from the game played
+        const msg = document.querySelector('#win-message'); //selecting p element to announce winner of the round
+        const human = document.querySelector('#human'); //Selecting the human score
+        const machine = document.querySelector('#computer'); //selecting the machine score 
+        msg.textContent = result.message;
+        human.textContent = 'Man: '+result.winCount;
+        machine.textContent = 'Machine: ' + result.loseCount;
+        setTimeout(removeMsg,2000);
+    }
     
-}
-if (winCount > loseCount){
-    console.log('Congratulation. You have won'); // announce the winner of the game
-}
-else if (winCount < loseCount){
-    console.log('Better Luck next time');
-}
-else {
-    console.log('You are as lucky as the computer')
-}
-
+function removeMsg(){
+        const msg = document.querySelector('#win-message');
+        msg.textContent = ''; 
+    }
+    
+    let winCount = 0; //initialize the win counter
+    let loseCount = 0; //initialize the lose counter 
+    const choices = document.querySelectorAll('button'); //Select all the buttons
+    choices.forEach(btn =>
+        btn.addEventListener('click', displayResult,{  //Add event listener to each button
+            capture: true
+    }));

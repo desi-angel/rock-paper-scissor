@@ -10,17 +10,27 @@
         <h1 id="main-header">Welcome to the Battle of Rock Paper and Scissor</h1>
         <p id="hero-text">Select your Weapon of Choice</p>
         <div id="weapons">
-            <div id="rock" class="weapon-type">
+            <button class="button" value="rock">
                 <img src="./Images/rock.jpeg" alt="rock" class="image">
-            </div>
-            <div id="scissor" class="weapon-type">
+            </button>
+            <button class="button" value="scissor">
                 <img src="./Images/scissor.jpeg" alt="scissor" class="image">
-            </div>
-            <div id="paper" class="weapon-type">
+            </button>
+            <button class="button" value="paper">
                 <img src="./Images/paper.png" alt="paper" class="image">
+            </button>
+        </div>
+        <div id="score-display">
+            <p id="win-message"></p>
+            <div id="score-card">
+                <p id="computer" class="scores">Machine: </p>
+                <p id="human" class="scores">Man: </p>
             </div>
         </div>
+        <p id="result">
+
+        </p>
     </div>
-    
+    <script src="./script.js"></script>
 </body>
 </html>

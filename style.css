@@ -8,14 +8,15 @@ body{
     
 }
 #container{
-    border: 2px solid red;
+
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 150px;
+    padding-top: 100px;
     font-family: 'Macondo',cursive;
     font-size: 30px;
+    gap: 30px;
 }
 h1{
     font-family: 'Macondo',cursive;
@@ -25,12 +26,22 @@ h1{
     display: flex;
     gap: 50px;
 }
-.weapon-type{
-    border: 2px solid red;
-    width: 200px;
-    height: 200px;
+.button{
+    border-radius: 4px;
 }
 img{
     width: 200px;
     height: 200px;
+}
+#score-display{
+    width: 400px;
+    gap: 100px; 
+    text-align: center;
+}
+#score-card{
+    display: flex;
+}
+.scores{
+    width: 200px;
+    text-align: center;
 }
