@@ -15,8 +15,6 @@ function computerPlay(){
     return choice;
 }
 
-
-
 function playRound(computerSelection, playerSelection){     //Playing a single round according to the rules of the game
     if(computerSelection === playerSelection){      
         
@@ -45,7 +43,10 @@ function displayResult(result){  //displaying result to the user
 }
 function check(e){
     e.preventDefault();   //Prevents bubbling on the way down
-    let game = playRound(computerPlay(),e.currentTarget.value); //getting result from the game played
+    const computerSelection = computerPlay();
+    const playerSelection = e.currentTarget.value;
+    showSelection(computerSelection, playerSelection);
+    let game = playRound(computerSelection, playerSelection); //getting result from the game played
     displayResult(game);
     const container = document.querySelector('#container');
     const result = document.querySelector('#result');
@@ -61,6 +62,20 @@ function check(e){
     }
 
 }
+
+function showSelection(computerSelection, playerSelection){
+    const btns = document.querySelectorAll('.button');
+    btns.forEach(btn => {
+        if(btn.value === computerSelection || btn.value === playerSelection){
+            btn.classList.add('displayStyle');
+            setTimeout(()=> {
+                btn.classList.remove('displayStyle');
+            },1000);
+        }
+    });
+    console.log(computerSelection,playerSelection);
+}
+
 function playAgain(prompt_text){
         const modal = document.querySelector('.modal');
         const text = document.querySelector('.prompt')
@@ -70,7 +85,6 @@ function playAgain(prompt_text){
 
         btn.onclick = function(){
             window.location.reload();
-            
         }
 }
     let winCount = 0; //initialize the win counter
